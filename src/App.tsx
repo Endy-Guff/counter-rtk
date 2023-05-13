@@ -1,10 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import { BrowserRouter } from 'react-router-dom';
 import './App.css';
-import {Counter} from "./components/Counter/Counter";
-import {Settings} from "./components/Settings/Settings";
 import {CounterApp1} from "./CounterApp1";
 import {CounterApp2} from "./CounterApp2";
+import {Button} from "./components/Button/Button";
 
 export type IncStateType = {
     inc: number
@@ -12,8 +10,11 @@ export type IncStateType = {
     max: number
 }
 
+type CounterAppType = 'firstCounterApp' | 'secondCounterApp'
+
 function App() {
 
+    const [counterApp, setCounterApp] = useState<CounterAppType>('firstCounterApp')
 
     // const [inc, setInk] = useState<IncStateType>({inc: 0, min: 0, max: 5})
     // const [message, setMessage] = useState('press "set"')
@@ -57,26 +58,37 @@ function App() {
     // }
 
     return (
-        <BrowserRouter>
 
-            <div className="App">
-                <CounterApp1/>
-                {/*<CounterApp2/>*/}
-
-                {/*<Settings*/}
-                {/*    inc={inc}*/}
-                {/*    setMinMaxInc={setMinMaxInc}*/}
-                {/*    setMessage={setMessage}*/}
-                {/*    message={message}*/}
-                {/*/>*/}
-                {/*<Counter*/}
-                {/*    inc={inc}*/}
-                {/*    incAdd={incAdd}*/}
-                {/*    incReset={incReset}*/}
-                {/*    message={message}*/}
-                {/*/>*/}
+        <div className="App">
+            <div className={'btnBox'}>
+                <Button
+                    name={'Two-window counter'}
+                    callback={()=>setCounterApp('firstCounterApp')}
+                    disabled={counterApp==='firstCounterApp'}
+                />
+                <Button
+                    name={'Single window counter'}
+                    callback={()=>setCounterApp('secondCounterApp')}
+                    disabled={counterApp==='secondCounterApp'}
+                />
             </div>
-        </BrowserRouter>
+            {counterApp==='firstCounterApp'
+            ?<CounterApp1/>
+            :<CounterApp2/>}
+
+            {/*<Settings*/}
+            {/*    inc={inc}*/}
+            {/*    setMinMaxInc={setMinMaxInc}*/}
+            {/*    setMessage={setMessage}*/}
+            {/*    message={message}*/}
+            {/*/>*/}
+            {/*<Counter*/}
+            {/*    inc={inc}*/}
+            {/*    incAdd={incAdd}*/}
+            {/*    incReset={incReset}*/}
+            {/*    message={message}*/}
+            {/*/>*/}
+        </div>
 
     );
 }

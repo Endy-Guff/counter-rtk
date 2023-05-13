@@ -5,23 +5,26 @@ import {IncStateType} from "../../App";
 import {Input} from "../Input/Input";
 import {useDispatch, useSelector} from "react-redux";
 import {RootStoreType} from "../../redux/store";
-import {changeMaxAC, changeMinAC, MinMaxType, setMessageAC} from "../../redux/counterReducer";
+import {MessageType, MinMaxType} from "../../redux/firstCounterReducer";
 
 type PropsType = {
-    setMinMaxInc: (min: number, max: number) =>void
+    setInc: () =>void
+    message: MessageType
+    minMax: MinMaxType
+    setMaxInc: (e: ChangeEvent<HTMLInputElement>) => void
+    setMinInc: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
-type LocalStateType = {
-    min: number
-    max: number
-}
 export const Settings: React.FC<PropsType> = (
     {
-        setMinMaxInc,
+        setInc,
+        message,
+        minMax,
+        setMaxInc,
+        setMinInc
     }
 ) => {
-    const message = useSelector<RootStoreType, string>(state => state.message)
-    const minMax = useSelector<RootStoreType, MinMaxType>(state => state.data.minMax)
+
     const dispatch = useDispatch()
 
     const inputClass = minMax.min === minMax.max || minMax.min < 0 || minMax.max < 0
@@ -35,16 +38,15 @@ export const Settings: React.FC<PropsType> = (
     // }, [inputClass])
 
     const inputHandlerMax = (e: ChangeEvent<HTMLInputElement>) =>{
-        dispatch(changeMaxAC(Number(e.currentTarget.value)))
+        setMaxInc(e)
     }
 
     const inputHandlerMin = (e: ChangeEvent<HTMLInputElement>) =>{
-        dispatch(changeMinAC(Number(e.currentTarget.value)))
+        setMinInc(e)
     }
 
     const setHandler = () => {
-        setMinMaxInc(minMax.min, minMax.max)
-        dispatch(setMessageAC(''))
+        setInc()
     }
 
     const validate = !message || minMax.min === minMax.max || minMax.max < minMax.min || minMax.min < 0 || minMax.max < 0

@@ -1,9 +1,15 @@
-import {counterReducer} from "./counterReducer";
-import {createStore} from "redux";
+import {firstCounterReducer} from "./firstCounterReducer";
+import {combineReducers, createStore} from "redux";
+import {secondCounterReducer} from "./secondCounterReducer";
 
-export type RootStoreType = ReturnType<typeof counterReducer>
+export type RootStoreType = ReturnType<typeof rootReducer>
 
-export const store = createStore(counterReducer)
+const rootReducer = combineReducers({
+    firstCounter: firstCounterReducer,
+    secondCounter: secondCounterReducer
+})
+
+export const store = createStore(rootReducer)
 
 //@ts-ignore
 window.store = store

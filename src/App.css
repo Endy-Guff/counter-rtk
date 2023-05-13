@@ -5,11 +5,17 @@
 }
 
 .App{
-  min-height: 2vh;
+  height: 100vh;
   padding: 50px 0;
   background: #1a1a1a;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 40px;
+}
+
+.btnBox{
+  display: flex;
+  gap: 40px;
 }

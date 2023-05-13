@@ -1,9 +1,9 @@
-const INC_ADD = 'INC-ADD'
-const INC_RESET = 'INC-RESET'
-const SET_MIN_MAX = 'SET-MIN-MAX'
-const CHANGE_MIN = 'CHANGE-MIN'
-const CHANGE_MAX = 'CHANGE-MAX'
-const SET_MESSAGE = 'SET-MESSAGE'
+const SECOND_INC_ADD = 'SECOND-INC-ADD'
+const SECOND_INC_RESET = 'SECOND-INC-RESET'
+const SECOND_SET_MIN_MAX = 'SECOND-SET-MIN-MAX'
+const SECOND_CHANGE_MIN = 'SECOND-CHANGE-MIN'
+const SECOND_CHANGE_MAX = 'SECOND-CHANGE-MAX'
+const SECOND_SET_MESSAGE = 'SECOND-SET-MESSAGE'
 
 export type IncType = {
     inc: number
@@ -18,31 +18,32 @@ type DataType = {
     inc: IncType
     minMax: MinMaxType
 }
+export type MessageType = 'press "set"' | 'error' | ''
 type InitialStateType = {
     data: DataType
-    message: string
+    message: MessageType
 }
 
 type IncAddActionCreateType = {
-    type: 'INC-ADD'
+    type: 'SECOND-INC-ADD'
 }
 type IncResetActionCreateType = {
-    type: 'INC-RESET'
+    type: 'SECOND-INC-RESET'
 }
 type SetMinMaxActionCreateType = {
-    type: 'SET-MIN-MAX'
+    type: 'SECOND-SET-MIN-MAX'
 }
 type ChangeMinActionCreateType = {
-    type: 'CHANGE-MIN'
+    type: 'SECOND-CHANGE-MIN'
     min: number
 }
 type ChangeMaxActionCreateType = {
-    type: 'CHANGE-MAX'
+    type: 'SECOND-CHANGE-MAX'
     max: number
 }
 type ChangeSetMessageActionCreateType = {
-    type: 'SET-MESSAGE'
-    message: string
+    type: 'SECOND-SET-MESSAGE'
+    message: MessageType
 }
 const initialState: InitialStateType = {
     data: {
@@ -55,68 +56,68 @@ const initialState: InitialStateType = {
 type ActionType = IncAddActionCreateType | IncResetActionCreateType | ChangeSetMessageActionCreateType
     | SetMinMaxActionCreateType | ChangeMinActionCreateType | ChangeMaxActionCreateType
 
-export const counterReducer = (state = initialState, action:ActionType): InitialStateType => {
+export const secondCounterReducer = (state = initialState, action:ActionType): InitialStateType => {
     switch (action.type) {
-        case INC_ADD:
+        case SECOND_INC_ADD:
             return {...state, data: {...state.data, inc: {...state.data.inc, inc: state.data.inc.inc + 1}}}
-        case INC_RESET:
+        case SECOND_INC_RESET:
             return {...state, data: {...state.data, inc: {...state.data.inc, inc: state.data.inc.min}}}
-        case SET_MIN_MAX:
+        case SECOND_SET_MIN_MAX:
             return {...state, data: {...state.data, inc: {...state.data.inc, inc: state.data.minMax.min, min: state.data.minMax.min, max: state.data.minMax.max}}}
-        case CHANGE_MIN:
-            if (action.min === state.data.minMax.max || action.min < 0 || state.data.minMax.max < 0){
+        case SECOND_CHANGE_MIN:
+            if (action.min === state.data.minMax.max || action.min < 0 || state.data.minMax.max < 0 || action.min > state.data.minMax.max){
                 return {...state, message: 'error', data: {...state.data, minMax: {...state.data.minMax, min: action.min}}}
             }else {
                 return {...state, message: 'press "set"', data: {...state.data, minMax: {...state.data.minMax, min: action.min}}}
             }
-        case CHANGE_MAX:
-            if (state.data.minMax.min === action.max || state.data.minMax.min < 0 || action.max < 0){
+        case SECOND_CHANGE_MAX:
+            if (state.data.minMax.min === action.max || state.data.minMax.min < 0 || action.max < 0 || state.data.minMax.min > action.max){
                 return {...state, message: 'error', data: {...state.data, minMax: {...state.data.minMax, max: action.max}}}
             }else {
                 return {...state, message: 'press "set"', data: {...state.data, minMax: {...state.data.minMax, max: action.max}}}
             }
-        case SET_MESSAGE:
+        case SECOND_SET_MESSAGE:
             return {...state, message: action.message}
         default:
             return state
     }
 }
 
-export const incAddAC = (): IncAddActionCreateType =>{
+export const secondIncAddAC = (): IncAddActionCreateType =>{
     return{
-        type: INC_ADD
+        type: SECOND_INC_ADD
     }
 }
 
-export const incResetAC = (): IncResetActionCreateType =>{
+export const secondIncResetAC = (): IncResetActionCreateType =>{
     return{
-        type: INC_RESET
+        type: SECOND_INC_RESET
     }
 }
 
-export const setMinMaxAC = (): SetMinMaxActionCreateType =>{
+export const secondSetMinMaxAC = (): SetMinMaxActionCreateType =>{
     return{
-        type: SET_MIN_MAX
+        type: SECOND_SET_MIN_MAX
     }
 }
 
-export const changeMinAC = (num: number): ChangeMinActionCreateType =>{
+export const secondChangeMinAC = (num: number): ChangeMinActionCreateType =>{
     return{
-        type: CHANGE_MIN,
+        type: SECOND_CHANGE_MIN,
         min: num
     }
 }
 
-export const changeMaxAC = (num: number): ChangeMaxActionCreateType =>{
+export const secondChangeMaxAC = (num: number): ChangeMaxActionCreateType =>{
     return{
-        type: CHANGE_MAX,
+        type: SECOND_CHANGE_MAX,
         max: num
     }
 }
 
-export const setMessageAC = (message: string): ChangeSetMessageActionCreateType =>{
+export const secondSetMessageAC = (message: MessageType): ChangeSetMessageActionCreateType =>{
     return{
-        type: SET_MESSAGE,
+        type: SECOND_SET_MESSAGE,
         message
     }
 }

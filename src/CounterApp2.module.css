@@ -42,7 +42,7 @@
     top: 40px;
 }
 
-.btnBox a{
+.btnBox button{
     display: block;
     color: #ffffff;
     width: 100px;
@@ -51,14 +51,14 @@
     border-radius: 15px;
     text-align: center;
     text-decoration: none;
-    line-height: 30px;
     transition: .3s;
+    cursor: pointer;
 }
 
-.btnBox a:hover{
+.btnBox button:hover{
     transform: scale(1.1);
 }
 
-.btnBox a:active{
+.btnBox button:active{
     transform: scale(0.8);
 }

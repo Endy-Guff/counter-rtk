@@ -5,11 +5,13 @@ import {Button} from "../Button/Button";
 import {IncStateType} from "../../App";
 import {useSelector} from "react-redux";
 import {RootStoreType} from "../../redux/store";
+import {MessageType} from "../../redux/firstCounterReducer";
 
 type PropsType ={
     inc: IncStateType
     incAdd: () => void
     incReset: () => void
+    message: MessageType
 }
 
 export const Counter:React.FC<PropsType> = (
@@ -17,10 +19,10 @@ export const Counter:React.FC<PropsType> = (
         inc,
         incAdd,
         incReset,
+        message
     }
 ) => {
 
-    const message = useSelector<RootStoreType, string>(state => state.message)
 
     return (
         <div className={s.wrapper}>
