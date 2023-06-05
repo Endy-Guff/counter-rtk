@@ -5,7 +5,7 @@ import {Button} from "../Button/Button";
 import {IncStateType} from "../../App";
 import {useSelector} from "react-redux";
 import {RootStoreType} from "../../redux/store";
-import {MessageType} from "../../redux/firstCounterReducer";
+import {MessageType} from "../../redux/counterReducer";
 
 type PropsType ={
     inc: IncStateType

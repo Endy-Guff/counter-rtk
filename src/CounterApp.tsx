@@ -4,15 +4,15 @@ import {Counter} from "./components/Counter/Counter";
 import {useDispatch, useSelector} from "react-redux";
 import {RootStoreType} from "./redux/store";
 import {
-    firstChangeMaxAC, firstChangeMinAC,
-    firstIncAddAC, firstIncResetAC, firstSetMessageAC, firstSetMinMaxAC,
+    changeMaxAC, changeMinAC,
+    incAddAC, incResetAC, setMessageAC, setMinMaxAC,
     IncType,
     MessageType,
     MinMaxType,
-} from "./redux/firstCounterReducer";
+} from "./redux/counterReducer";
 
 
-export const CounterApp1: React.FC = () => {
+export const CounterApp: React.FC = () => {
 
     const app = {
         background: '#1a1a1a',
@@ -21,10 +21,10 @@ export const CounterApp1: React.FC = () => {
         alignItems: 'center',
         gap: '20px',
     }
-    const inc = useSelector<RootStoreType, IncType>(state => state.firstCounter.data.inc)
+    const inc = useSelector<RootStoreType, IncType>(state => state.counter.data.inc)
 
-    const message = useSelector<RootStoreType, MessageType>(state => state.firstCounter.message)
-    const minMax = useSelector<RootStoreType, MinMaxType>(state => state.firstCounter.data.minMax)
+    const message = useSelector<RootStoreType, MessageType>(state => state.counter.message)
+    const minMax = useSelector<RootStoreType, MinMaxType>(state => state.counter.data.minMax)
 
     const dispatch = useDispatch()
 
@@ -54,28 +54,28 @@ export const CounterApp1: React.FC = () => {
     // }, [inc])
 
     const incAdd = () => {
-        dispatch(firstIncAddAC())
+        dispatch(incAddAC())
     }
 
     const incReset = () => {
-        dispatch(firstIncResetAC())
+        dispatch(incResetAC())
     }
 
     const setMinMaxInc = () => {
-        dispatch(firstSetMinMaxAC())
+        dispatch(setMinMaxAC())
     }
 
     const setMaxInc = (e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(firstChangeMaxAC(Number(e.currentTarget.value)))
+        dispatch(changeMaxAC(Number(e.currentTarget.value)))
     }
 
     const setMinInc = (e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(firstChangeMinAC(Number(e.currentTarget.value)))
+        dispatch(changeMinAC(Number(e.currentTarget.value)))
     }
 
     const setInc = () =>{
         setMinMaxInc()
-        dispatch(firstSetMessageAC(''))
+        dispatch(setMessageAC(''))
     }
 
     return (

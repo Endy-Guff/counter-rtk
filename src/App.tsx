@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
-import {CounterApp1} from "./CounterApp1";
-import {CounterApp2} from "./CounterApp2";
-import {Button} from "./components/Button/Button";
+import {CounterApp} from "./CounterApp";
 
 export type IncStateType = {
     inc: number
@@ -10,11 +8,8 @@ export type IncStateType = {
     max: number
 }
 
-type CounterAppType = 'firstCounterApp' | 'secondCounterApp'
 
 function App() {
-
-    const [counterApp, setCounterApp] = useState<CounterAppType>('firstCounterApp')
 
     // const [inc, setInk] = useState<IncStateType>({inc: 0, min: 0, max: 5})
     // const [message, setMessage] = useState('press "set"')
@@ -60,21 +55,8 @@ function App() {
     return (
 
         <div className="App">
-            <div className={'btnBox'}>
-                <Button
-                    name={'Two-window counter'}
-                    callback={()=>setCounterApp('firstCounterApp')}
-                    disabled={counterApp==='firstCounterApp'}
-                />
-                <Button
-                    name={'Single window counter'}
-                    callback={()=>setCounterApp('secondCounterApp')}
-                    disabled={counterApp==='secondCounterApp'}
-                />
-            </div>
-            {counterApp==='firstCounterApp'
-            ?<CounterApp1/>
-            :<CounterApp2/>}
+
+            <CounterApp/>
 
             {/*<Settings*/}
             {/*    inc={inc}*/}

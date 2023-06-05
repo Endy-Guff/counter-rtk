@@ -5,7 +5,7 @@ import {IncStateType} from "../../App";
 import {Input} from "../Input/Input";
 import {useDispatch, useSelector} from "react-redux";
 import {RootStoreType} from "../../redux/store";
-import {MessageType, MinMaxType} from "../../redux/firstCounterReducer";
+import {MessageType, MinMaxType} from "../../redux/counterReducer";
 
 type PropsType = {
     setInc: () =>void

@@ -1,15 +1,18 @@
-import {firstCounterReducer} from "./firstCounterReducer";
-import {combineReducers, createStore} from "redux";
-import {secondCounterReducer} from "./secondCounterReducer";
+import {counterReducer} from "./counterReducer";
+import {combineReducers, createStore, legacy_createStore} from "redux";
+import {loadState, saveState} from "../utils/localStorageUtils";
 
 export type RootStoreType = ReturnType<typeof rootReducer>
 
 const rootReducer = combineReducers({
-    firstCounter: firstCounterReducer,
-    secondCounter: secondCounterReducer
+    counter: counterReducer,
 })
 
-export const store = createStore(rootReducer)
+export const store = legacy_createStore(rootReducer, loadState())
+
+store.subscribe(()=>{
+    saveState(store.getState())
+})
 
 //@ts-ignore
 window.store = store
